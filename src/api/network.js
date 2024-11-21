@@ -119,9 +119,35 @@ export const getProfile = async () => {
   }
 };
 
+export const updateUserProfile = async ({ name, email, password }) => {
+  const url = `${BASE_API_URL}/api/users/profile`;
+
+  try {
+    const response = await fetch(url, {
+      method: "PUT", // Update request
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${useAuthStore.getState().token}`,
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error updating profile:", error.message);
+    throw error;
+  }
+};
+
 export const toggleTaskStatus = async (taskId) => {
   try {
-    const response = await fetch(`${BASE_API_URL}/api/tasks/${taskId}/toggle`, {
+    const response = await fetch(`${BASE_API_URL}/api/tasks/${taskId}/done`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${useAuthStore.getState().token}`,

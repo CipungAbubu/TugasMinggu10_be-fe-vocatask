@@ -7,6 +7,7 @@ import { useAuthStore } from './store/authStore';
 import { useProfileStore } from './store/profileStore';
 import { useEffect } from 'react';
 import Register from "./pages/register";
+import UpdateProfile from "./pages/updateProfile";
 
 function App() {
   const token = useAuthStore((state) => state.token);
@@ -30,6 +31,7 @@ function App() {
           <Home />
         </ProtectedRoute>} />
         <Route path="/register" element={<Register />} />
+        <Route path="/update-profile" element={<UpdateProfile />} />
       </Routes>
     </BrowserRouter>
   );
